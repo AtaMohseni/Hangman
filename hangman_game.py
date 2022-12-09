@@ -162,3 +162,8 @@ class Hangman:
                 print("not a valid input")
         
 
+if __name__ == "__main__":
+    game = Hangman()
+    game.play()
+    
+    
