@@ -127,18 +127,18 @@ class Hangman:
         unknow word"""
         
         import time
-        print ("please choose a 5-letter word in your mind (all upperchase)")
-        time.sleep(10)
+        print ("please think of a 5-letter word in your mind (all upperchase)")
+        
+        time.sleep(5)
         
         while None in self.final_word:
             g = self.guess() 
-            print ("my guess is letter: \t",g)
+            print ("\nmy guess is letter:  ",g)
+            value = input("is the letter exist in the word in your mind? (type Yes or No) or type exit:  ")
             
-            value = input("is the letter exist in the word in your mind? (type Yes or No) or type exit:\t")
-            
-            if str(value.lower()) == "yes":
+            if str(value.strip().lower()) == "yes":
                 
-                locations = input("please type the location(s) of the letter in the word, number(s) between 0 to 4 (separated by comma):\t")
+                locations = input("please type the location(s) of the letter in the word, number(s) between 0 to 4 (separated by comma):  ")
                 locations = [x.strip() for x in locations.split(',')]
                 
                 for index in locations:
@@ -153,15 +153,17 @@ class Hangman:
                 
                 print("correct letters sofar: \t", self.final_word)
                 
-            elif str(value.lower()) == "no":
+            elif str(value.strip().lower()) == "no":
                 self.unavailable_letters.append(str(g))
                 
             elif str(value.lower()) == "exit":
                 break
+                
             else:
                 print("not a valid input")
         
-
+        if None not in self.final_word:
+            print('Final word is:', "".join(self.final_word))
 if __name__ == "__main__":
     game = Hangman()
     game.play()
