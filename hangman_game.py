@@ -117,6 +117,41 @@ class Hangman:
                
         return best_next_letter
     
+    def _check_user_confirmation_input(self):
+        """ method to get and check the string input from user. input should be
+        either 'yes','no',or 'exit' , and method returns it"""
+        while True:
+            value = input("is the letter exist in the word in your mind? (type Yes or No) or type exit:  ")
+            if str(value.strip().lower()) == "yes" or str(value.strip().lower()) == "no" or str(value.lower()) == "exit":
+                break
+            else:
+                print("Not a valid input. Please try gain.")
+        return value
+    
+    def _check_user_index_input(self):
+        """ method to get and check the integer(s) input from user.
+        input should an integer, or several integers separated with comma, and
+        it returns the list of index(es)"""
+        
+        valid_input = False
+        while valid_input == False:
+            
+            locations = input("please type the index(s) of the letter in the word, integers(s) between 0 to 4 (separated by comma), or type exit:  ")
+        
+            if str(locations.lower()) == "exit":
+                break
+            
+            locations = [x.strip() for x in locations.split(',')]
+            for index in locations:
+                if index.isnumeric() and int(index) in range(5):
+                    valid_input = True
+                else:
+                    print("Not a valid input. Please try gain.")
+                    valid_input = False
+                    break
+            
+        return locations
+                
     def play(self):
         
         """ This method starts the game. it asks the user to think of a five
@@ -132,35 +167,31 @@ class Hangman:
         time.sleep(5)
         
         while None in self.final_word:
+            
             g = self.guess() 
             print ("\nmy guess is letter:  ",g)
-            value = input("is the letter exist in the word in your mind? (type Yes or No) or type exit:  ")
+            value = self._check_user_confirmation_input()
             
             if str(value.strip().lower()) == "yes":
                 
-                locations = input("please type the location(s) of the letter in the word, number(s) between 0 to 4 (separated by comma):  ")
-                locations = [x.strip() for x in locations.split(',')]
+                locations = self._check_user_index_input() 
+                
+                if str(locations).lower == "exit":
+                    break
                 
                 for index in locations:
-                    if index.isnumeric():
-                        self.final_word[int(index)] = g
-                    else:
-                        print("not a valid input")
-                        break
+                    self.final_word[int(index)] = g
                     
                 self.available_letters.remove(str(g))
                 self.unavailable_letters.append(str(g))
                 
-                print("correct letters sofar: \t", self.final_word)
+                print("\ncorrect letters sofar:  ", self.final_word)
                 
             elif str(value.strip().lower()) == "no":
                 self.unavailable_letters.append(str(g))
                 
             elif str(value.lower()) == "exit":
                 break
-                
-            else:
-                print("not a valid input")
         
         if None not in self.final_word:
             print('Final word is:', "".join(self.final_word))
