@@ -164,7 +164,10 @@ class Hangman:
         
         if None not in self.final_word:
             print('Final word is:', "".join(self.final_word))
+            
 if __name__ == "__main__":
+    """ it let you start playing the game when running the entire script or
+    calling the hangman_game.py in console"""
     game = Hangman()
     game.play()
     
