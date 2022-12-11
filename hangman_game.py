@@ -12,7 +12,8 @@ class Hangman:
     letter in the word."""
     
     def __init__(self):
-        
+        #length of the word to be guessed
+        self.word_length = 5
         #dictionary that maps words to their frequency or P(W = w)
         self.words_to_freq =  Frequencies()
         #list of available letters to guess
@@ -20,7 +21,7 @@ class Hangman:
         #list of unavailable letters (either gussed correctly or guessed incorrecly)
         self.unavailable_letters = []
         # list of chracters to be placed in 5-letter word during the game
-        self.final_word = [None for x in range(5)]
+        self.final_word = [None for x in range(self.word_length)]
         
     
     def _prob_evidence_given_word(self,word):
@@ -32,13 +33,13 @@ class Hangman:
         for index in range(len(self.final_word)):
             if self.final_word[index] == None:
                 if word[index] in self.unavailable_letters:
-                    prob =0
+                    prob = 0
                     return prob
                 else:
                     prob = 1
             else:
                 if self.final_word[index] == word[index]:
-                    prob =1
+                    prob = 1
                 else:
                     prob = 0
                     return prob
@@ -143,7 +144,7 @@ class Hangman:
             
             locations = [x.strip() for x in locations.split(',')]
             for index in locations:
-                if index.isnumeric() and int(index) in range(5):
+                if index.isnumeric() and int(index) in range(self.word_length):
                     valid_input = True
                 else:
                     print("Not a valid input. Please try gain.")
