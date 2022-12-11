@@ -16,7 +16,7 @@ class Hangman:
         self.word_length = 5
         #dictionary that maps words to their frequency or P(W = w)
         self.words_to_freq =  Frequencies()
-        #list of available letters to guess
+        #list of available letters in alphabet to guess (all uppercase letters)
         self.available_letters = [chr(x) for x in range(65,91)]
         #list of unavailable letters (either gussed correctly or guessed incorrecly)
         self.unavailable_letters = []
@@ -171,11 +171,11 @@ class Hangman:
             
             g = self.guess() 
             print ("\nmy guess is letter:  ",g)
-            value = self._check_user_confirmation_input()
+            value = self._check_user_confirmation_input() #check the user input
             
             if str(value.strip().lower()) == "yes":
                 
-                locations = self._check_user_index_input() 
+                locations = self._check_user_index_input() #check the user input
                 
                 if str(locations).lower == "exit":
                     break
@@ -186,14 +186,14 @@ class Hangman:
                 self.available_letters.remove(str(g))
                 self.unavailable_letters.append(str(g))
                 
-                print("\ncorrect letters sofar:  ", self.final_word)
+                print("\ncorrect letters so far:  ", self.final_word)
                 
             elif str(value.strip().lower()) == "no":
                 self.unavailable_letters.append(str(g))
                 
             elif str(value.lower()) == "exit":
                 break
-        
+        # print the final guessed word:
         if None not in self.final_word:
             print('Final word is:', "".join(self.final_word))
             
