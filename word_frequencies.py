@@ -9,10 +9,11 @@ def Frequencies():
     that contains words as key as well as word frequencies as value"""
     
     try:
-        fhand = open('C:\\Users\\ATA\\Documents\\UCSD\\CSE 250A\\HW1\\hw1_word_counts_05.txt')
+        fhand = open('./word_counts_05.txt')
     except:
         print ('the file does not exist')
-        
+        return None
+    
     d = dict()    
     for line in fhand:
                                  
